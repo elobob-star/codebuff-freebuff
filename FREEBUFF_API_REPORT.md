@@ -76,6 +76,14 @@ Beyond native model reasoning, Freebuff implements a programmatic, multi-agent o
 
 ---
 
+
+
+### 3.5 MiniMax Reasoning
+The MiniMax models (specifically `MiniMax M3`) run inside the standard Freebuff orchestrator (`base2`).
+*   **Routing**: Under the hood, they route through OpenRouter (using model ID `minimax/minimax-m3`), meaning their reasoning can be configured using the same `reasoningOptions` (`effort`, `max_tokens`, `exclude`) as other OpenRouter-backed models.
+*   **Sub-agent Offloading**: As one of the core Freebuff models, `MiniMax M3` is explicitly allowlisted in `FREEBUFF_GEMINI_THINKER_PARENT_MODELS`. This allows the root orchestrator to offload deeper reasoning to the `gemini-thinker` sub-agent when complex problems arise, bridging native inference with the multi-agent "Thinker" paradigm.
+*   **Cost & Privacy**: In free mode, the orchestrator overrides the provider options to explicitly set `data_collection: 'deny'`.
+
 ## 4. Model Capabilities Overview
 
 *   **DeepSeek V4 Pro & Flash**: Utilizes inline `<think>` tags. Highly capable models used in both full and limited Freebuff tiers.
